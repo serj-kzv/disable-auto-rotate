@@ -12,3 +12,6 @@ https://stackoverflow.com/a/62254533
 ScreenOrientation.prototype.lock
 
 Screen.prototype.mozLockOrientation
+
+https://stackblitz.com/edit/js-ee7f9j?file=index.js
+
