@@ -1,5 +1,5 @@
 (lock => {
-    Screen.prototype.lock = function () {
+    ScreenOrientation.prototype.lock = function () {
         arguments.splice(1);
         arguments[0] = 'any';
 
