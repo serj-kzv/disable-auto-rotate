@@ -1,4 +1,4 @@
-The extension disables **lock orientation** JavaScript functions on web pages. So no more an auto screen rotation on web pages.
+The extension disables **lock orientation** JavaScript functions on web pages. So **no more an auto screen rotation** on web pages.
  
 **WARNING!** The extension does not disable **auto rotation** made by CSS page styles!
 So simple page transformation through a CSS style can still rotate web pages. See [transform](https://developer.mozilla.org/en-US/docs/Web/CSS/transform)
@@ -24,12 +24,20 @@ npm run watch
 ```
 
 # How the extension works?
-It replaces `ScreenOrientation.prototype.lock` and `Screen.prototype.mozLockOrientation` by fake functions.  
+It replaces `ScreenOrientation.prototype.lock` and `Screen.prototype.mozLockOrientation` by fake functions
+those change passed parameters to default values.  
 In other words it disable **lock orientation** JavaScript API.
 
 # Known issues
 - There are some warnings on some pages of some sites about a violation of
 [Content Security Policy](https://developer.mozilla.org/en-US/docs/Web/HTTP/CSP) but the extension works anyway.
+- The extension does not prevent screen rotation that was made by CSS.
+To prevent that it needs to set an inline CSS `style` attribute of `<html>` and `<body>` to a `initial` value.
+And prevent its changes by using [MutationObserver](https://developer.mozilla.org/en-US/docs/Web/API/MutationObserver).
+Using [tabs.insertCSS()](https://developer.mozilla.org/en-US/docs/Mozilla/Add-ons/WebExtensions/API/tabs/insertCSS)
+is not sufficient here!
+Also it needs to parse CSS rule with third party libraries like [csstree](https://github.com/csstree/csstree)
+because there is no an easy way to get a value of `transform: ...` CSS property.
 
 # Documentation about orientation
 
