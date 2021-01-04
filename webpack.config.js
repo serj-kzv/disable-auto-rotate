@@ -55,15 +55,13 @@ module.exports = (env, argv) => {
     }
 
     return userJs.map((path, idx) => {
-        const currentPlugins = idx === 0 ? [new CleanWebpackPlugin()].concat(plugins) : plugins
-
         return {
             entry: `./src/${path}`,
             output: {
                 path: distDir,
                 filename: path
             },
-            plugins: currentPlugins,
+            plugins,
             ...cfg
         };
     });

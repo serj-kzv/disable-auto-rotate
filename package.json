@@ -14,5 +14,9 @@
     "prod": "webpack --config webpack.config.js --mode production"
   },
   "author": "serj-kzv",
-  "license": "MIT"
+  "license": "MIT",
+  "dependencies": {
+    "css": "^3.0.0",
+    "css-tree": "^1.1.2"
+  }
 }

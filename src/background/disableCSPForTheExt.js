@@ -3,7 +3,9 @@ const disableCSPForTheExt = () => {
         function (details) {
             console.debug(details);
             for (var i = 0; i < details.requestHeaders.length; ++i) {
-                if (details.requestHeaders[i].name === 'Access-Control-Allow-Origin') {
+                if (details.requestHeaders[i].name === 'Access-Control-Allow-Origin'
+                || details.requestHeaders[i].name === 'Content-Security-Policy') {
+                    console.debug('header removed', details.requestHeaders[i].name)
                     details.requestHeaders.splice(i, 1);
                     break;
                 }
@@ -11,14 +13,14 @@ const disableCSPForTheExt = () => {
             return {
                 requestHeaders: [
                     ...details.requestHeaders,
-                    {
-                        name: 'Access-Control-Allow-Origin',
-                        value: '*'
-                    },
-                    {
-                        name: 'Content-Security-Policy',
-                        value: "script-src 'self' moz-extension:; object-src 'self'"
-                    }
+                    // {
+                    //     name: 'Access-Control-Allow-Origin',
+                    //     value: '*'
+                    // },
+                    // {
+                    //     name: 'Content-Security-Policy',
+                    //     value: "script-src 'self' moz-extension:; object-src 'self'"
+                    // }
                 ]
             };
         },
