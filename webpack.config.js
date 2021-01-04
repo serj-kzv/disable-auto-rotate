@@ -27,10 +27,9 @@ const cfg = {
     }
 };
 const userJs = [
-    'background/main.js',
-    'content/main.js',
-    'content/disableLock.js',
-    'content/disableMozLockOrientation.js'
+    'main.js',
+    'disableLock.js',
+    'disableMozLockOrientation.js'
 ];
 
 module.exports = (env, argv) => {
@@ -54,7 +53,7 @@ module.exports = (env, argv) => {
         };
     }
 
-    return userJs.map((path, idx) => {
+    return userJs.map(path => {
         return {
             entry: `./src/${path}`,
             output: {

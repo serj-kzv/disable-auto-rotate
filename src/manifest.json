@@ -6,14 +6,10 @@
   "author": "serj-kzv",
   "version": "1.0",
   "homepage_url": "https://github.com/serj-kzv/disable-auto-rotate",
-  "background": {
-    "persistent": true,
-    "page": "/background/main.html"
-  },
   "content_scripts": [
     {
       "js": [
-        "/content/main.js"
+        "/main.js"
       ],
       "matches": [
         "<all_urls>"
@@ -24,44 +20,7 @@
     }
   ],
   "permissions": [
-    "<all_urls>",
-    "activeTab",
-    "alarms",
-    "bookmarks",
-    "browserSettings",
-    "browsingData",
-    "captivePortal",
-    "clipboardRead",
-    "clipboardWrite",
-    "contextMenus",
-    "contextualIdentities",
-    "cookies",
-    "dns",
-    "downloads",
-    "downloads.open",
-    "find",
-    "geolocation",
-    "history",
-    "identity",
-    "idle",
-    "management",
-    "menus",
-    "nativeMessaging",
-    "notifications",
-    "pkcs11",
-    "privacy",
-    "proxy",
-    "search",
-    "sessions",
-    "storage",
-    "tabHide",
-    "tabs",
-    "theme",
-    "topSites",
-    "unlimitedStorage",
-    "webNavigation",
-    "webRequest",
-    "webRequestBlocking"
+    "<all_urls>"
   ],
   "content_security_policy": "script-src 'self' 'unsafe-eval'; object-src 'self'"
 }
