@@ -36,6 +36,7 @@ module.exports = (env, argv) => {
     const isProduction = argv.mode === 'production';
 
     if (isProduction) {
+        cfg.productionSourceMap = false;
         cfg.optimization = {
             minimize: true,
             // https://github.com/webpack-contrib/terser-webpack-plugin
