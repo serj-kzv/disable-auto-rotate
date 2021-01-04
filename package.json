@@ -1,0 +1,18 @@
+{
+  "name": "disable-auto-rotate",
+  "version": "1.0.0",
+  "description": "disable a page auto rotation",
+  "devDependencies": {
+    "clean-webpack-plugin": "^3.0.0",
+    "copy-webpack-plugin": "^7.0.0",
+    "terser-webpack-plugin": "^5.0.3",
+    "webpack": "^5.11.1",
+    "webpack-cli": "^4.3.1"
+  },
+  "scripts": {
+    "watch": "webpack --config webpack.config.js --watch --mode development",
+    "prod": "webpack --config webpack.config.js --mode production"
+  },
+  "author": "serj-kzv",
+  "license": "MIT"
+}

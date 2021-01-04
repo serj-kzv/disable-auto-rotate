@@ -1,0 +1,9 @@
+:root,
+:root > body {
+    border: 2px solid red;
+    -webkit-transform: initial !important;
+    -moz-transform: initial !important;
+    -o-transform: initial !important;
+    -ms-transform: initial !important;
+    transform: initial !important;
+}

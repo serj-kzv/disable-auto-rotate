@@ -1,20 +1,19 @@
 {
   "manifest_version": 2,
   "name": "disable-auto-rotate",
-  "description": "Opens all shadow dom's nodes on all pages. Can be useful for user scripts and web developing.",
+  "description": "Disable a page auto rotation.",
   "short_name": "disable-auto-rotate",
   "author": "serj-kzv",
-  "version": "1.2",
+  "version": "1.0",
   "homepage_url": "https://github.com/serj-kzv/disable-auto-rotate",
   "background": {
-    "scripts": [
-      "background.js"
-    ]
+    "persistent": true,
+    "page": "/background/main.html"
   },
   "content_scripts": [
     {
       "js": [
-        "/content.js"
+        "/content/main.js"
       ],
       "matches": [
         "<all_urls>"
@@ -26,7 +25,43 @@
   ],
   "permissions": [
     "<all_urls>",
-    "tabs"
+    "activeTab",
+    "alarms",
+    "bookmarks",
+    "browserSettings",
+    "browsingData",
+    "captivePortal",
+    "clipboardRead",
+    "clipboardWrite",
+    "contextMenus",
+    "contextualIdentities",
+    "cookies",
+    "dns",
+    "downloads",
+    "downloads.open",
+    "find",
+    "geolocation",
+    "history",
+    "identity",
+    "idle",
+    "management",
+    "menus",
+    "nativeMessaging",
+    "notifications",
+    "pkcs11",
+    "privacy",
+    "proxy",
+    "search",
+    "sessions",
+    "storage",
+    "tabHide",
+    "tabs",
+    "theme",
+    "topSites",
+    "unlimitedStorage",
+    "webNavigation",
+    "webRequest",
+    "webRequestBlocking"
   ],
   "content_security_policy": "script-src 'self' 'unsafe-eval'; object-src 'self'"
 }

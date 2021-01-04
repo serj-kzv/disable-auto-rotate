@@ -15,3 +15,5 @@ Screen.prototype.mozLockOrientation
 
 https://stackblitz.com/edit/js-ee7f9j?file=index.js
 
+window.screen.orientation.lock("portrait");
+screen.mozLockOrientation('landscape');

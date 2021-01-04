@@ -1,8 +1,0 @@
-:root,
-:root > body {
-    -webkit-transform: initial;
-    -moz-transform: initial;
-    -o-transform: initial;
-    -ms-transform: initial;
-    transform: initial;
-}
