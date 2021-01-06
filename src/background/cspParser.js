@@ -10,6 +10,8 @@ const cspParserToObjectFn = policyString =>
     }, {});
 const cspParserToStringFn = policyObject =>
     Object.entries(policyObject).map(([k, v]) => `${k}${v.length > 0 ? ' ' : ''}${v.join(' ')}`).join('; ');
+
+// See https://developer.mozilla.org/en-US/docs/Web/HTTP/Headers/Content-Security-Policy
 const CspDirective = Object.freeze({
     CHILD_SRC: 'child-src',
     CONNECT_SRC: 'connect-src',
@@ -44,7 +46,7 @@ const CspDirective = Object.freeze({
     UPGRADE_INSECURE_REQUESTS: 'upgrade-insecure-requests',
 });
 const getValuesByDirectiveFn = (policyObject, cspDirective) =>
-    Object.entries(this.policyObject).find(([k]) => k === cspDirective)[1];
+    Object.entries(policyObject).find(([k]) => k === cspDirective)[1];
 
 class CspParser {
     constructor(policyString) {
@@ -64,4 +66,4 @@ class CspParser {
     }
 }
 
-export {cspParserToObjectFn, cspParserToStringFn, CspParser, CspDirective, getValuesByDirectiveFn};
+export {cspParserToObjectFn, cspParserToStringFn, CspDirective, getValuesByDirectiveFn, CspParser};
