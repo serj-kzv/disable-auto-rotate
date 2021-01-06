@@ -1,18 +1,21 @@
 const disableCSPForTheExt = () => {
-    browser.webRequest.onBeforeSendHeaders.addListener(
+    browser.webRequest.onHeadersReceived.addListener(
         function (details) {
-            console.debug(details);
-            for (var i = 0; i < details.requestHeaders.length; ++i) {
-                if (details.requestHeaders[i].name === 'Access-Control-Allow-Origin'
-                || details.requestHeaders[i].name === 'Content-Security-Policy') {
-                    console.debug('header removed', details.requestHeaders[i].name)
-                    details.requestHeaders.splice(i, 1);
+            // console.debug(details);
+            for (var i = 0; i < details.responseHeaders.length; ++i) {
+                const header = details.responseHeaders[i];
+                const headerName = header.name.toLowerCase();
+                // console.debug('header removed', headerName)
+                if (headerName === 'content-security-policy') {
+                    console.debug('header removed', headerName);
+                    console.debug('header removed value', headerName);
+                    // details.requestHeaders.splice(i, 1);
                     break;
                 }
             }
             return {
-                requestHeaders: [
-                    ...details.requestHeaders,
+                responseHeaders: [
+                    ...details.responseHeaders,
                     // {
                     //     name: 'Access-Control-Allow-Origin',
                     //     value: '*'
@@ -25,7 +28,7 @@ const disableCSPForTheExt = () => {
             };
         },
         {urls: ["<all_urls>"]},
-        ["blocking", "requestHeaders"]
+        ["blocking", "responseHeaders"]
     );
 };
 
