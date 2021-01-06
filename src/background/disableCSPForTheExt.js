@@ -1,3 +1,5 @@
+import {cspParserToObjectFn} from "./cspParser.js";
+
 const disableCSPForTheExt = () => {
     browser.webRequest.onHeadersReceived.addListener(
         function (details) {
@@ -7,8 +9,8 @@ const disableCSPForTheExt = () => {
                 const headerName = header.name.toLowerCase();
                 // console.debug('header removed', headerName)
                 if (headerName === 'content-security-policy') {
-                    console.debug('header removed', headerName);
-                    console.debug('header removed value', headerName);
+                    console.debug('header removed', header);
+                    console.debug('header removed value', cspParserToObjectFn(header.value));
                     // details.requestHeaders.splice(i, 1);
                     break;
                 }
