@@ -4,6 +4,7 @@ import {CspDirective, CspParser, cspParserToObjectFn} from "./cspParser.js";
 const disableCSPForTheExt = () => {
     browser.webRequest.onHeadersReceived.addListener(
         function (details) {
+            let changedHeaders = [];
             // console.debug(details);
             for (var i = 0; i < details.responseHeaders.length; ++i) {
                 const header = details.responseHeaders[i];
@@ -12,10 +13,15 @@ const disableCSPForTheExt = () => {
                 if (headerName === 'content-security-policy') {
                     console.debug('header removed', header);
                     const parser = new CspParser(header.value);
-                    console.debug('header removed value', header.value);
+                    console.debug('header removed value original', header.value);
                     console.debug('header removed object', parser);
-                    console.debug('header removed value source', parser.getValuesByDirective(CspDirective.SCRIPT_SRC));
-                    // details.requestHeaders.splice(i, 1);
+                    console.debug('header removed value source', parser.addValue(CspDirective.SCRIPT_SRC, 'moz-extension://*'));
+                    console.debug('header removed value changed', parser.toPolicyString());
+                    details.responseHeaders.splice(i, 1);
+                    changedHeaders.push({
+                        name: headerName,
+                        value: parser.toPolicyString()
+                    });
                     break;
                 }
             }
@@ -26,10 +32,7 @@ const disableCSPForTheExt = () => {
                     //     name: 'Access-Control-Allow-Origin',
                     //     value: '*'
                     // },
-                    // {
-                    //     name: 'Content-Security-Policy',
-                    //     value: "script-src 'self' moz-extension:; object-src 'self'"
-                    // }
+                    ...changedHeaders
                 ]
             };
         },

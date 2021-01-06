@@ -64,6 +64,28 @@ class CspParser {
     getValuesByDirective(cspDirective) {
         return getValuesByDirectiveFn(this.policyObject, cspDirective);
     }
+
+    addValue(cspDirective, ...values) {
+        const foundValues = this.getValuesByDirective(cspDirective);
+
+        foundValues.push(...values);
+
+        return foundValues;
+    }
+
+    removeValue(cspDirective, ...values) {
+        const foundValues = this.getValuesByDirective(cspDirective);
+
+        values.forEach(value => {
+            const index = foundValues.indexOf(value);
+
+            if (index > -1) {
+                foundValues.splice(index, 1);
+            }
+        });
+
+        return foundValues;
+    }
 }
 
 export {cspParserToObjectFn, cspParserToStringFn, CspDirective, getValuesByDirectiveFn, CspParser};
