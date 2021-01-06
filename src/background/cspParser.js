@@ -99,8 +99,8 @@ class CspParser {
         return this.removeValueBase(cspDirective, (foundValues, value) => foundValues.findIndex(foundValue => foundValue.endsWith(value)), ...values);
     }
 
-    removeValueRegEx(cspDirective, regExp, ...values) {
-        return this.removeValueBase(cspDirective, (foundValues, value) => foundValues.findIndex(foundValue => regExp.test(value)), ...values);
+    removeValueByRegEx(cspDirective, ...values) {
+        return this.removeValueBase(cspDirective, (foundValues, value) => foundValues.findIndex(foundValue => value.test(foundValue)), ...values);
     }
 
 }
