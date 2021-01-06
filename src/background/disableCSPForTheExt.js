@@ -3,11 +3,11 @@ import {CspDirective, CspParser, cspParserToObjectFn} from "./cspParser.js";
 
 const disableCSPForTheExt = () => {
     browser.webRequest.onHeadersReceived.addListener(
-        function (details) {
+        function ({responseHeaders}) {
             let changedHeaders = [];
             // console.debug(details);
-            for (var i = 0; i < details.responseHeaders.length; ++i) {
-                const header = details.responseHeaders[i];
+            for (var i = 0; i < responseHeaders.length; ++i) {
+                const header = responseHeaders[i];
                 const headerName = header.name.toLowerCase();
                 // console.debug('header removed', headerName)
                 if (headerName === 'content-security-policy') {
@@ -15,9 +15,10 @@ const disableCSPForTheExt = () => {
                     const parser = new CspParser(header.value);
                     console.debug('header removed value original', header.value);
                     console.debug('header removed object', parser);
-                    console.debug('header removed value source', parser.addValue(CspDirective.SCRIPT_SRC, 'moz-extension://*'));
+                    console.debug('header removed value source', parser.addValue(CspDirective.SCRIPT_SRC, 'moz-extension://ee51564e-2ccf-4b5a-9a49-62ffb9900687/content/disableLock.js'));
+                    parser.removeValueStartsWith(CspDirective.SCRIPT_SRC, "'nonce-");
                     console.debug('header removed value changed', parser.toPolicyString());
-                    details.responseHeaders.splice(i, 1);
+                    responseHeaders.splice(i, 1);
                     changedHeaders.push({
                         name: headerName,
                         value: parser.toPolicyString()
@@ -25,16 +26,23 @@ const disableCSPForTheExt = () => {
                     break;
                 }
             }
-            return {
+            const headerObject = {
                 responseHeaders: [
-                    ...details.responseHeaders,
+                    ...responseHeaders,
                     // {
                     //     name: 'Access-Control-Allow-Origin',
                     //     value: '*'
                     // },
+                    // {
+                    //     name: 'Content-Security-Policy',
+                    //     value: "default-src * 'unsafe-inline' 'unsafe-eval'; script-src * 'unsafe-inline' 'unsafe-eval'; connect-src * 'unsafe-inline'; img-src * data: blob: 'unsafe-inline'; frame-src *; style-src * 'unsafe-inline'"
+                    // },
                     ...changedHeaders
                 ]
             };
+            console.debug('responseHeaders', headerObject.responseHeaders);
+
+            return headerObject;
         },
         {urls: ["<all_urls>"]},
         ["blocking", "responseHeaders"]

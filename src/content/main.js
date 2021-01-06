@@ -73,6 +73,17 @@ const addScriptFn = async path => {
 
     script.remove();
 };
+const addScriptInlineFn = async path => {
+    const script = document.createElement('script');
+
+    script.async = false;
+    const url = browser.runtime.getURL(path);
+    console.debug('code url', url);
+    script.textContent = await (await fetch(url)).text();
+    (document.head || document.documentElement).appendChild(script);
+
+    script.remove();
+};
 const main = async () => {
     // new ElementMutator().start();
     [

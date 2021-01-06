@@ -24,7 +24,8 @@ const cfg = {
     watchOptions: {
         ignored: ['node_modules'],
         poll: 500 // is needed to avoid an issue with change detection
-    }
+    },
+    devtool: 'source-map'
 };
 const userJs = [
     'background/main.js',
@@ -37,6 +38,7 @@ module.exports = (env, argv) => {
     const isProduction = argv.mode === 'production';
 
     if (isProduction) {
+        cfg.devtool = undefined;
         cfg.optimization = {
             minimize: true,
             // https://github.com/webpack-contrib/terser-webpack-plugin
