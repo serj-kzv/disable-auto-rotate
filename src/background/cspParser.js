@@ -73,11 +73,11 @@ class CspParser {
         return foundValues;
     }
 
-    removeValue(cspDirective, ...values) {
+    removeValueBase(cspDirective, predicate, ...values) {
         const foundValues = this.getValuesByDirective(cspDirective);
 
         values.forEach(value => {
-            const index = foundValues.indexOf(value);
+            const index = predicate(foundValues, value);
 
             if (index > -1) {
                 foundValues.splice(index, 1);
@@ -86,6 +86,23 @@ class CspParser {
 
         return foundValues;
     }
+
+    removeValue(cspDirective, ...values) {
+        return this.removeValueBase(cspDirective, (foundValues, value) => foundValues.indexOf(value), ...values);
+    }
+
+    removeValueStartsWith(cspDirective, ...values) {
+        return this.removeValueBase(cspDirective, (foundValues, value) => foundValues.findIndex(foundValue => foundValue.startsWith(value)), ...values);
+    }
+
+    removeValueEndsWith(cspDirective, ...values) {
+        return this.removeValueBase(cspDirective, (foundValues, value) => foundValues.findIndex(foundValue => foundValue.endsWith(value)), ...values);
+    }
+
+    removeValueRegEx(cspDirective, regExp, ...values) {
+        return this.removeValueBase(cspDirective, (foundValues, value) => foundValues.findIndex(foundValue => regExp.test(value)), ...values);
+    }
+
 }
 
 export {cspParserToObjectFn, cspParserToStringFn, CspDirective, getValuesByDirectiveFn, CspParser};
