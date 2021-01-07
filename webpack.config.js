@@ -24,18 +24,20 @@ const cfg = {
     watchOptions: {
         ignored: ['node_modules'],
         poll: 500 // is needed to avoid an issue with change detection
-    }
+    },
+    devtool: 'source-map'
 };
 const userJs = [
-    'main.js',
-    'disableLock.js',
-    'disableMozLockOrientation.js'
+    'content/main.js',
+    'web_accessible_resources/disableLock.js',
+    'web_accessible_resources/disableMozLockOrientation.js',
 ];
 
 module.exports = (env, argv) => {
     const isProduction = argv.mode === 'production';
 
     if (isProduction) {
+        cfg.devtool = undefined;
         cfg.optimization = {
             minimize: true,
             // https://github.com/webpack-contrib/terser-webpack-plugin

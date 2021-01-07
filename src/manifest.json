@@ -4,12 +4,12 @@
   "description": "Disable a page auto rotation.",
   "short_name": "disable-auto-rotate",
   "author": "serj-kzv",
-  "version": "1.0",
+  "version": "1.2",
   "homepage_url": "https://github.com/serj-kzv/disable-auto-rotate",
   "content_scripts": [
     {
       "js": [
-        "/main.js"
+        "/content/main.js"
       ],
       "matches": [
         "<all_urls>"
@@ -19,7 +19,7 @@
       "run_at": "document_start"
     }
   ],
-  "permissions": [
-    "<all_urls>"
+  "web_accessible_resources": [
+    "/web_accessible_resources/*"
   ]
 }

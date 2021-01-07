@@ -1,6 +1,6 @@
 {
   "name": "disable-auto-rotate",
-  "version": "1.0.0",
+  "version": "1.2.0",
   "description": "disable a page auto rotation",
   "devDependencies": {
     "clean-webpack-plugin": "^3.0.0",
@@ -10,6 +10,7 @@
     "webpack-cli": "^4.3.1"
   },
   "scripts": {
+    "build": "webpack --config webpack.config.js",
     "watch": "webpack --config webpack.config.js --watch --mode development",
     "prod": "webpack --config webpack.config.js --mode production"
   },
