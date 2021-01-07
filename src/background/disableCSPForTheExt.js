@@ -1,5 +1,4 @@
-import {CspDirective, CspParser, cspParserToObjectFn} from "./cspParser.js";
-
+import {CspDirective, CspParser} from "./cspParser.js";
 
 const disableCSPForTheExt = () => {
     browser.webRequest.onHeadersReceived.addListener(

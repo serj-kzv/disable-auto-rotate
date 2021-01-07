@@ -1,4 +1,3 @@
-import insertCSSFn from "./insertCSSFn.js";
 import disableCSPForTheExt from "./disableCSPForTheExt.js";
 
 // var obj = css.parse('body { font-size: 12px; }', options);
