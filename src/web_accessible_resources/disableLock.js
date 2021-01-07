@@ -3,8 +3,10 @@ console.debug('disableLock injecting is starting');
     console.debug('disableLock starts');
     ScreenOrientation.prototype.lock = function () {
         console.debug('A try to execute disableLock');
-        if (arguments.length > 0) {
-            if (arguments.length > 1) {
+        const length = arguments.length;
+
+        if (length > 0) {
+            if (length > 1) {
                 arguments.splice(1);
             }
             arguments[0] = 'any';

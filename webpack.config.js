@@ -30,8 +30,8 @@ const cfg = {
 const userJs = [
     'background/main.js',
     'content/main.js',
-    'content/disableLock.js',
-    'content/disableMozLockOrientation.js'
+    'web_accessible_resources/disableLock.js',
+    'web_accessible_resources/disableMozLockOrientation.js',
 ];
 
 module.exports = (env, argv) => {
@@ -47,7 +47,7 @@ module.exports = (env, argv) => {
                 parallel: true,
                 // https://github.com/terser/terser#minify-options
                 terserOptions: {
-                    ecma: 8,
+                    ecma: 2020,
                     compress: {
                         drop_console: true
                     }
@@ -56,7 +56,7 @@ module.exports = (env, argv) => {
         };
     }
 
-    return userJs.map((path, idx) => {
+    return userJs.map(path => {
         return {
             entry: `./src/${path}`,
             output: {

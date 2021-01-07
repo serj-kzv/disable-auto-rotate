@@ -45,24 +45,29 @@ const CspDirective = Object.freeze({
     TRUSTED_TYPES: 'trusted-types',
     UPGRADE_INSECURE_REQUESTS: 'upgrade-insecure-requests',
 });
-const getValuesByDirectiveFn = (policyObject, cspDirective) =>
-    Object.entries(policyObject).find(([k]) => k === cspDirective)[1];
+const getValuesByDirectiveFn = (policyObject, cspDirective) => {
+    try {
+        return Object.entries(policyObject).find(([k]) => k === cspDirective)[1];
+    } catch (ex) {
+        console.error("Can not find a value by directive name", cspDirective);
+    }
+};
 
 class CspParser {
     constructor(policyString) {
-        this.policyObject = cspParserToObjectFn(policyString);
+        this.policy = cspParserToObjectFn(policyString);
     }
 
     getPolicy() {
-        return this.policyObject;
+        return this.policy;
     }
 
     toPolicyString() {
-        return cspParserToStringFn(this.policyObject);
+        return cspParserToStringFn(this.policy);
     }
 
     getValuesByDirective(cspDirective) {
-        return getValuesByDirectiveFn(this.policyObject, cspDirective);
+        return getValuesByDirectiveFn(this.policy, cspDirective);
     }
 
     addValue(cspDirective, ...values) {

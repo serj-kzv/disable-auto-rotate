@@ -87,8 +87,8 @@ const addScriptInlineFn = async path => {
 const main = async () => {
     // new ElementMutator().start();
     [
-        '/content/disableLock.js',
-        '/content/disableMozLockOrientation.js'
+        '/web_accessible_resources/disableLock.js',
+        '/web_accessible_resources/disableMozLockOrientation.js'
     ].forEach(path => addScriptFn(path));
 };
 

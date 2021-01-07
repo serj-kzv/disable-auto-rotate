@@ -6,6 +6,7 @@ const disableCSPForTheExt = () => {
         function ({responseHeaders}) {
             let changedHeaders = [];
             // console.debug(details);
+            console.debug('browser.runtime.getManifest()', browser.runtime.getManifest());
             for (var i = 0; i < responseHeaders.length; ++i) {
                 const header = responseHeaders[i];
                 const headerName = header.name.toLowerCase();
@@ -15,14 +16,15 @@ const disableCSPForTheExt = () => {
                     const parser = new CspParser(header.value);
                     console.debug('header removed value original', header.value);
                     console.debug('header removed object', parser);
-                    console.debug('header removed value source', parser.addValue(CspDirective.SCRIPT_SRC, 'moz-extension://ee51564e-2ccf-4b5a-9a49-62ffb9900687/content/disableLock.js'));
-                    parser.removeValueStartsWith(CspDirective.SCRIPT_SRC, "'nonce-");
+                    console.debug('header removed value source', parser.addValue(CspDirective.SCRIPT_SRC, 'moz-extension:'));
+                    // parser.removeValueStartsWith(CspDirective.SCRIPT_SRC, "'nonce-");
                     console.debug('header removed value changed', parser.toPolicyString());
-                    responseHeaders.splice(i, 1);
-                    changedHeaders.push({
-                        name: headerName,
-                        value: parser.toPolicyString()
-                    });
+                    // responseHeaders.splice(i, 1);
+                    console.debug('header removed after', responseHeaders);
+                    // changedHeaders.push({
+                    //     name: headerName,
+                    //     value: parser.toPolicyString()
+                    // });
                     break;
                 }
             }

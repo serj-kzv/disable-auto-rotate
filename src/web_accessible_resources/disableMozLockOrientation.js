@@ -3,8 +3,10 @@ console.debug('disableMozLockOrientation injecting is starting');
     console.debug('disableMozLockOrientation starts');
     Screen.prototype.mozLockOrientation = function () {
         console.debug('A try to execute disableMozLockOrientation');
-        if (arguments.length > 0) {
-            if (arguments.length > 1) {
+        const length = arguments.length;
+
+        if (length > 0) {
+            if (length > 1) {
                 arguments.splice(1);
             }
             arguments[0] = 'default';
